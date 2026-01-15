@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  kairos_os:
+    build: .
+    container_name: kairos_container
+    ports:
+      - "8501:8501"
+    volumes:
+      # Map local ./data folder to /app/data inside container
+      - ./data:/app/data
+    environment:
+      - DB_PATH=/app/data/kairos.db
+      - KAIROS_ADMIN_USER=${KAIROS_ADMIN_USER:-admin}
+      - KAIROS_ADMIN_PASS=${KAIROS_ADMIN_PASS:-admin}
+    restart: unless-stopped

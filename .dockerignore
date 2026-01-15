@@ -1,0 +1,11 @@
+
+venv/
+__pycache__/
+*.git*
+.streamlit/
+*.bat
+artifacts/
+directives/
+test_*.py
+verify_*.py
+*.pdf

@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Database & Local Data (MAI caricare i dati reali su GitHub)
+*.db
+data/
+kairos.db
+
+# Docker
+.docker/
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
