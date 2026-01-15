@@ -22,7 +22,7 @@ import auth_manager as auth
 
 # --- CONFIGURAZIONE ---
 st.set_page_config(
-    page_title="Antigravity TITANIUM",
+    page_title="KAIROS FINANCIAL OS",
     page_icon="💎",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -69,8 +69,8 @@ def login_page():
         with st.container():
             st.markdown("""
                 <div class="login-card">
-                <h1 style="color:#00f0ff; text-shadow:0 0 15px #00f0ff; margin-bottom:10px;">ANTIGRAVITY</h1>
-                <p style="color:#8b949e; font-family:'Rajdhani'; letter-spacing:2px; margin-bottom:30px;">TITANIUM OS ACCESS</p>
+                    <h1 style="color:#00f0ff; text-shadow:0 0 15px #00f0ff; margin-bottom:10px;">KAIROS</h1>
+                    <p style="color:#8b949e; font-family:'Rajdhani'; letter-spacing:2px; margin-bottom:30px;">FINANCIAL OS ACCESS</p>
                 </div>
             """, unsafe_allow_html=True)
             
