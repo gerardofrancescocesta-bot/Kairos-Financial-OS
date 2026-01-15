@@ -52,6 +52,8 @@ def render_hud(metrics):
 """
     st.markdown(html_content, unsafe_allow_html=True)
 
+import textwrap
+
 def render_skill_card(skill_name, current, target, category):
     html = f"""
     <div class="skill-card">
@@ -68,7 +70,7 @@ def render_skill_card(skill_name, current, target, category):
         </div>
     </div>
     """
-    return html
+    return textwrap.dedent(html)
 
 def render_portfolio_metrics(tot_a, tot_l, net_worth):
     st.markdown(f"""

@@ -143,9 +143,10 @@ def main_app(user_id):
             df_a = dbm.load_data("assets", user_id)
             if not df_a.empty:
                 df_a['total_value'] = df_a['quantity'] * df_a['current_price']
-                fig = px.treemap(df_a, path=[px.Constant("PORTFOLIO"), 'category', 'name'], values='total_value',
-                                 color='category', color_discrete_sequence=px.colors.sequential.RdBu)
-                fig.update_layout(margin=dict(t=0, l=0, r=0, b=0), paper_bgcolor='rgba(0,0,0,0)')
+                fig = px.sunburst(df_a, path=['category', 'name'], values='total_value',
+                                 color='category', color_discrete_sequence=['#00f0ff', '#bc13fe', '#00ff41', '#ff0055', '#ffffff'])
+                fig.update_layout(margin=dict(t=0, l=0, r=0, b=0), paper_bgcolor='rgba(0,0,0,0)', font=dict(color='white'))
+                fig.update_traces(textinfo="label+percent entry")
                 st.plotly_chart(fig, use_container_width=True)
             else:
                 st.markdown("<div style='padding:50px; text-align:center; border:1px dashed #333; color:#555;'>NO DATA VISUALIZED</div>", unsafe_allow_html=True)
@@ -303,10 +304,43 @@ def main_app(user_id):
                 
                 st.markdown("### SKILL RADAR")
                 cats = df_s['skill_name'].tolist()
+                # KAIROS HIGH-VIS RADAR
                 fig = go.Figure()
-                fig.add_trace(go.Scatterpolar(r=df_s['current_level'], theta=cats, fill='toself', name='Current', line_color='#00ff41'))
-                fig.add_trace(go.Scatterpolar(r=df_s['target_level'], theta=cats, fill='toself', name='Target', line_color='#bc13fe'))
-                fig.update_layout(polar=dict(radialaxis=dict(visible=True, range=[0, 100])), paper_bgcolor='rgba(0,0,0,0)', font_color="white", height=400)
+
+                # Current (Cyan Neon with fill)
+                fig.add_trace(go.Scatterpolar(
+                    r=df_s['current_level'], 
+                    theta=cats, 
+                    fill='toself', 
+                    name='Current',
+                    line_color='#00f0ff',
+                    fillcolor='rgba(0, 240, 255, 0.2)',
+                    marker=dict(size=8)
+                ))
+
+                # Target (Purple Neon - Dashed)
+                fig.add_trace(go.Scatterpolar(
+                    r=df_s['target_level'], 
+                    theta=cats, 
+                    name='Target', 
+                    line_color='#bc13fe',
+                    line_dash='dot',
+                    marker=dict(size=1)
+                ))
+
+                fig.update_layout(
+                    polar=dict(
+                        bgcolor='rgba(255, 255, 255, 0.05)',
+                        radialaxis=dict(visible=True, range=[0, 100], showticklabels=False, gridcolor='#333', linecolor='#333'),
+                        angularaxis=dict(tickfont=dict(size=14, color='white', family='Rajdhani'), rotation=90, direction='clockwise', gridcolor='#444')
+                    ),
+                    paper_bgcolor='rgba(0,0,0,0)',
+                    font=dict(color='white'),
+                    margin=dict(l=40, r=40, t=20, b=20),
+                    height=450,
+                    showlegend=True,
+                    legend=dict(orientation="h", yanchor="bottom", y=-0.1, xanchor="center", x=0.5)
+                )
                 st.plotly_chart(fig, use_container_width=True)
             else:
                 st.info("NO SKILLS LOGGED. ADD SKILLS IN THE EDITOR.")
